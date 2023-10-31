@@ -1,10 +1,12 @@
-import type { Page } from '@playwright/test';
+import type { Browser, Page } from '@playwright/test';
 import { HomePage } from '@Pages/homePage';
 import { CategoryPage } from '@Pages/categoryPage';
 import { test as base, expect } from '@playwright/test';
 
-type Options = {
+export type Options = {
+    browser: Browser;
     page: Page;
+    baseURL: string;
     homePage: HomePage;
     categoryPage: CategoryPage;
 };
