@@ -45,22 +45,28 @@ test.describe('UHC-1 (test ID)', () => {
         await inputLastName.type('Ivanov');
 
         const inputEmail = page.locator("//input[@name='email']");
-        await inputEmail.type('test@test.com ');
+        await inputEmail.type('test654@test.com ');
 
         const inputPassword = page.locator("//input[@name='password']");
         await inputPassword.type('Test1234');
 
         const createAccBtn = page.locator('//button[contains(., "Create UHCGlasses.com Account")]');
-        await createAccBtn.click();
 
-        const errorP = page.locator('//p[contains(@class, "loginPopup__errorMessage___3O9-R")]');
-        const errorMessage = await errorP.textContent();
-
-        if (errorMessage === 'This email is already used') {
-            await inputEmail.fill('');
-            const newEmail = generateRandomEmail();
-            await inputEmail.type(newEmail);
+        try {
             await createAccBtn.click();
+
+            await page.waitForSelector('p.loginPopup__errorMessage___3O9-R', { timeout: 500 });
+
+            const errorMessage = await page.textContent('p.loginPopup__errorMessage___3O9-R');
+
+            if (errorMessage === 'This email is already used') {
+                await inputEmail.fill('');
+                const newEmail = generateRandomEmail();
+                await inputEmail.type(newEmail);
+                await createAccBtn.click();
+            }
+        } catch (error) {
+            console.log('Valid email');
         }
 
         await expect(async () => {
