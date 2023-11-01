@@ -1,4 +1,5 @@
 import { test, expect } from '@Test';
+import { generateRandomEmail } from 'helpers';
 
 test.describe('UHC-1 (test ID)', () => {
     test('Registration new customer with valid data and checking user data reset after logout (test title)', async ({
@@ -44,13 +45,23 @@ test.describe('UHC-1 (test ID)', () => {
         await inputLastName.type('Ivanov');
 
         const inputEmail = page.locator("//input[@name='email']");
-        await inputEmail.type('test110@test.com ');
+        await inputEmail.type('test@test.com ');
 
         const inputPassword = page.locator("//input[@name='password']");
         await inputPassword.type('Test1234');
 
         const createAccBtn = page.locator('//button[contains(., "Create UHCGlasses.com Account")]');
         await createAccBtn.click();
+
+        const errorP = page.locator('//p[contains(@class, "loginPopup__errorMessage___3O9-R")]');
+        const errorMessage = await errorP.textContent();
+
+        if (errorMessage === 'This email is already used') {
+            await inputEmail.fill('');
+            const newEmail = generateRandomEmail();
+            await inputEmail.type(newEmail);
+            await createAccBtn.click();
+        }
 
         await expect(async () => {
             expect(
