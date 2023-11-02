@@ -6,7 +6,7 @@ test.describe('UHC-0 (test ID)', () => {
         page,
         baseURL,
     }: Options) => {
-        await page.goto(baseURL, { waitUntil: 'domcontentloaded' });
+        await page.goto(baseURL as string, { waitUntil: 'domcontentloaded' });
 
         const pageTitle = await page.title();
 
