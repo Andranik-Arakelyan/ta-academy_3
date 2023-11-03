@@ -19,7 +19,12 @@ test.describe('UHC-0-pom', () => {
             await page.locator('//button[@aria-label="Close"]').click();
             await expect(page.locator('//div[@class="rc-dialog-content"]')).toBeHidden();
         });
-
+        ///////////////
+        await test.step('test-step 1 | guarantee is visible', async () => {
+            const guaranteeText = homePage.Header.TopSide.GuaranteeText;
+            expect(await guaranteeText.isVisible()).toBe(true);
+        });
+        //////////////
         await test.step('Test-step 1-3 | Step description', async () => {
             const navigation = homePage.Header.BottomSide.CategoryNavigation;
             expect(await navigation.isVisibleLinks()).toBe(true);
