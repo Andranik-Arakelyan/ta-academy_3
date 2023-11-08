@@ -9,6 +9,7 @@ describe('UHC-1-int', () => {
     beforeAll(async () => {
         cartPage = new CartPage();
         mock.addMocks(new GetCartItemsMock());
+        cartPage.debug();
     });
 
     afterAll(() => {

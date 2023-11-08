@@ -21,9 +21,9 @@ export class CartItem extends Component {
     }
 
     public async getPriceForOne(): Promise<number> {
-        const [priceElement] = await this.element.waitForXpath(this.selectors.priceForOne);
-        const xIndex = priceElement.textContent.indexOf('×');
-        return +priceElement.textContent.slice(1, xIndex).trim();
+        const priceForall = await this.getPriceForAll();
+        const quantity = await this.getQuantity();
+        return priceForall / quantity;
     }
 
     public async getTitle(): Promise<string> {
