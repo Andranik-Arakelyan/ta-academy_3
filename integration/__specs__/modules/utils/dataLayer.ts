@@ -29,7 +29,7 @@ const throwNoEventFoundError = (error: Error, eventQuery: DataLayerEvent): never
  *
  * @returns - Data Layer Event.
  */
-export const waitForDataLayer = async (eventQuery: DataLayerEvent, { timeout = 30 } = {}): Promise<DataLayerEvent> => {
+const waitForDataLayer = async (eventQuery: DataLayerEvent, { timeout = 30 } = {}): Promise<DataLayerEvent> => {
     try {
         return await waitFor(() => findInDataLayer(eventQuery), { timeout });
     } catch (e) {
@@ -37,5 +37,5 @@ export const waitForDataLayer = async (eventQuery: DataLayerEvent, { timeout = 3
     }
 };
 
-export const findAllInDataLayer = (eventOrValue: string, prop = 'name'): DataLayerEvent[] =>
+const findAllInDataLayer = (eventOrValue: string, prop = 'name'): DataLayerEvent[] =>
     getDataLayer().filter(elem => elem[prop] && elem[prop] === eventOrValue);

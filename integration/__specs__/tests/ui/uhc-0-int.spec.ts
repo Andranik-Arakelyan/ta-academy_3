@@ -8,6 +8,7 @@ describe('UHC-0-int', () => {
 
     beforeAll(async () => {
         cartPage = new CartPage();
+        cartPage.debug();
         mock.addMocks(new GetCartItemsMock());
     });
 
@@ -20,7 +21,7 @@ describe('UHC-0-int', () => {
         const title = await cartPage.getHeaderTitle();
 
         reporter.startStep('This is test step reporter');
-            expect(title).toStrictEqual('Shopping cart');
+        expect(title).toStrictEqual('Shopping cart');
         reporter.endStep();
     });
 });

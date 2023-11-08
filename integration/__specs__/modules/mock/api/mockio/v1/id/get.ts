@@ -1,6 +1,6 @@
 import { MockObject } from '@Mocks/mockObject';
 
-export class GetCartItemsMock extends MockObject {
+class GetCartItemsMock extends MockObject {
     public constructor() {
         super();
         this.path = {
