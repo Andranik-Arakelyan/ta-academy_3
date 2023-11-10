@@ -9,7 +9,6 @@ describe('UHC-1-int', () => {
     beforeAll(async () => {
         cartPage = new CartPage();
         mock.addMocks(new GetCartItemsMock());
-        cartPage.debug();
     });
 
     afterAll(() => {
@@ -18,6 +17,8 @@ describe('UHC-1-int', () => {
 
     test('Add cart item', async () => {
         await cartPage.fulfill();
+        cartPage.debug();
+
         const cartList = await cartPage.getCartList();
         const lengthBefore = (await cartList.getCartItems()).length;
 
@@ -34,7 +35,7 @@ describe('UHC-1-int', () => {
         const lengthNow = (await cartList.getCartItems()).length;
         expect(lengthNow).toStrictEqual(lengthBefore + 1);
 
-        const addedItem = (await cartList.getCartItems())[0];
+        const [addedItem] = await cartList.getCartItems();
         expect(await addedItem.getQuantity()).toStrictEqual(2);
         expect(await addedItem.getPriceForOne()).toStrictEqual(25);
         expect(await addedItem.getTitle()).toStrictEqual('Apple');
